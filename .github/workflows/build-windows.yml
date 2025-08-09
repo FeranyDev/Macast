@@ -40,10 +40,8 @@ jobs:
           7z x mpv-latest.7z -o"mpv"
           
           # 假设 Macast 的 mpv 放在 macast/player/mpv/ 目录
-          ls mpv
-          ls mpv/*
-          ls mpv/*/*
-          Copy-Item mpv/mpv.exe "macast/player/mpv/" -Recurse -Force
+          
+          Copy-Item mpv/* "macast/player/mpv/" -Recurse -Force
 
       - name: 打包 Macast
         run: |
@@ -54,6 +52,7 @@ jobs:
         with:
           name: Macast-Windows
           path: dist/Macast-Windows.exe
+
 
 
 
