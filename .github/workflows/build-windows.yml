@@ -41,7 +41,7 @@ jobs:
           
           # 假设 Macast 的 mpv 放在 macast/player/mpv/ 目录
           
-          Copy-Item mpv/* "macast/player/mpv/" -Recurse -Force
+          Copy-Item mpv/* "bin/" -Recurse -Force
 
       - name: 打包 Macast
         run: |
@@ -52,6 +52,7 @@ jobs:
         with:
           name: Macast-Windows
           path: dist/Macast-Windows.exe
+
 
 
 
