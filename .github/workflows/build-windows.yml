@@ -28,11 +28,17 @@ jobs:
       - name: 下载最新 mpv
         shell: pwsh
         run: |
-          $mpv_api = "https://api.github.com/repos/mpv-player/mpv/releases/latest"
+          # 获取最新的 mpv Windows 64 位构建（mpv-winbuild-cmake）
+          $mpv_api = "https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/releases/latest"
           $release = Invoke-RestMethod -Uri $mpv_api
-          $asset = $release.assets | Where-Object { $_.name -like "*win64*.zip" } | Select-Object -First 1
-          Invoke-WebRequest -Uri $asset.browser_download_url -OutFile mpv-latest.zip
-          Expand-Archive mpv-latest.zip -DestinationPath mpv
+          $asset = $release.assets | Where-Object { $_.name -like "*x86_64.7z" } | Select-Object -First 1
+          
+          # 下载
+          Invoke-WebRequest -Uri $asset.browser_download_url -OutFile mpv-latest.7z
+          
+          # 解压（用 7zip，Windows GitHub runner 已预装 7z）
+          7z x mpv-latest.7z -o"mpv"
+          
           # 假设 Macast 的 mpv 放在 macast/player/mpv/ 目录
           Copy-Item mpv/*/* "macast/player/mpv/" -Recurse -Force
 
@@ -45,4 +51,5 @@ jobs:
         with:
           name: Macast-Windows
           path: dist/Macast-Windows.exe
+
 
