@@ -31,7 +31,7 @@ jobs:
           # 获取最新的 mpv Windows 64 位构建（mpv-winbuild-cmake）
           $mpv_api = "https://api.github.com/repos/shinchiro/mpv-winbuild-cmake/releases/latest"
           $release = Invoke-RestMethod -Uri $mpv_api
-          $asset = $release.assets | Where-Object { $_.name -like "*x86_64.7z" } | Select-Object -First 1
+          $asset = $release.assets | Where-Object { $_.name -like "mpv-x86_64-v3*.7z" } | Select-Object -First 1
           
           # 下载
           Invoke-WebRequest -Uri $asset.browser_download_url -OutFile mpv-latest.7z
@@ -51,5 +51,6 @@ jobs:
         with:
           name: Macast-Windows
           path: dist/Macast-Windows.exe
+
 
 
